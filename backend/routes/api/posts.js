@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const router = require('express').Router();
 const Posts = mongoose.model('Posts');
 
-router.post('/', (req,res, next) => {
-	const { body } = req;
+router.post('/', async (req,res, next) => {
 
+	const { body } = req;
+	
 	if(!body.title) {
 		return res.status(422).json({
 			errors: {
@@ -31,7 +32,7 @@ router.post('/', (req,res, next) => {
 
 	const finalPost = new Posts(body);
 	return finalPost.save()
-		.then(() => res.json({post: finalPost}))
+		.then(() => res.json({post: finalPost.toJSON()}))
 		.catch(next);
 
 })
