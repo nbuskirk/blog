@@ -5,9 +5,12 @@ import { Home } from '../../components';
 
 const App = (props) => {
 	return (
+		<div>nav here
 		<Switch>
-			<Route exact path="/" component={Home} />
+			
+			<Route exact path="/home" component={Home} />
 		</Switch>
+		</div>
 	);
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import qs from 'qs';
+import { connect } from 'react-redux';
 
 class Form extends React.Component {
   
@@ -22,12 +22,14 @@ class Form extends React.Component {
   }
 
   handleSubmit() {
+    const { onSubmit } = this.props;
     const { title, body, author } = this.state; //spread
     return axios.post('http://localhost:8080/api/posts', {
       title,
       body,
       author
     })
+    .then((res) => onSubmit(res.data));
   }
 
   render() {
@@ -57,4 +59,8 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+const mapDispatchToProps = dispatch => ({
+  onSubmit: data => dispatch({type: 'SUBMIT_POST', data})
+})
+
+export default connect(null, mapDispatchToProps)(Form);
