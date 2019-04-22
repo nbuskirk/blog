@@ -1,7 +1,9 @@
+// concat/filter return new arr
+
 export default (state={posts: []}, action) => {
 	switch(action.type){
-		case 'HOME_PAGE_LOADED':
-			console.log('homepage loaded');
+		case 'BLOG_LOADED':
+			console.log('blog loaded');
 			return {
 				...state,
 				posts: action.data.posts
@@ -13,9 +15,22 @@ export default (state={posts: []}, action) => {
 				posts: ([action.data.post]).concat(state.posts)
 			}
 		case 'DELETE_POST':
+			console.log('delete post');
 			return {
 				...state,
 				posts: state.posts.filter((post) => post._id !== action.id),
+			}
+		case 'SET_POST':
+			console.log('select post');
+			return {
+				...state,
+				postToEdit: action.post
+			}
+		case 'EDIT_CANCEL':
+			console.log('cancel edit on post');
+			return {
+				...state,
+				postToEdit: undefined
 			}
 		default:
 			return state;

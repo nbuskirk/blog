@@ -1,9 +1,26 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito|Poppins:500|Open+Sans');
+$body-bg: #e9ecef;
+
+$theme-colors: (
+  "primary": #0074d9,
+  "danger": #ff4136
+);
+
+@import url('https://fonts.googleapis.com/css?family=Nunito|Poppins:500|Open+Sans|Titillium+Web');
 @import "~bootstrap/scss/bootstrap";
 
 body, html {
-  height: 100%;
-  background-color: rgba(0,0,0,.018);
   color: rgba(0,0,0,.75);
-  font-family: 'Nunito';
+  font-family: 'Open Sans';
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+}
+
+#home, #signup, #blog {
+	padding: 5em 0
+}
+
+#signup .form-control, #blog .form-control {
+	border-radius:0;
 }

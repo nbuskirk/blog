@@ -5,6 +5,7 @@ const session = require('express-session');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 mongoose.promise = global.Promise;
 
@@ -30,6 +31,8 @@ app.use(function(req,res,next){
 })
 
 require('./models/Posts');
+require('./models/User');
+
 app.use(require('./routes'));
 
 /* Server ERROR codes */

@@ -52,6 +52,7 @@ router.delete('/:id', (req,res,next) => {
 })
 
 router.get('/', (req,res,next) => {
+	console.log(req.session);
 	return Posts.find()
 		.sort({ createdAt: 'descending' })
 		.then((posts) => res.json({posts: posts}))
