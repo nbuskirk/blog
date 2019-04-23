@@ -7,14 +7,14 @@ class Signup extends React.Component {
 
 	componentDidMount() {
 		const { onLoad } = this.props;
-		axios.get('http://mishinima.com:8080/api/user')
+		axios.get('http://localhost.com:8080/api/user')
 			.then((res) => onLoad(res.data))
 
 	}
 
 	handleDelete(id) {
 		const { onDelete } = this.props;
-		axios.delete(`http://mishinima.com:8080/api/user/${id}`)
+		axios.delete(`http://localhost.com:8080/api/user/${id}`)
 				.then((res) => onDelete(id))
 	}
 

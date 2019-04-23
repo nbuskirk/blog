@@ -29,7 +29,7 @@ class Form extends React.Component {
   		const { onSubmit } = this.props;
   		const { username, password } = this.state;
 
-		axios.post('http://mishinima.com:8080/api/user', {
+		axios.post('http://localhost.com:8080/api/user', {
 			username,
 		    password,
 		})

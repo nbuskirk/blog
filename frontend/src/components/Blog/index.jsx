@@ -10,7 +10,7 @@ class Blog extends React.Component {
 		/* When the <Blog /> is mounted, fetch our data and send it to the reducer (blog.onLoad) */
 		/* This will change the state of blog to have a posts json array */
 		const { onLoad } = this.props;
-		axios('http://mishinima.com:8080/api/posts')
+		axios('http://localhost.com:8080/api/posts')
 			.then((res) => onLoad(res.data))
 	}
 
@@ -18,7 +18,7 @@ class Blog extends React.Component {
 		/* Call DELETE on the endpoint, then concat the users array in the reducer(blog.onDelete), and return it to us */
 		/* This triggers a re-render with a shorter post list, post array - 1 */
 		const { onDelete } = this.props;
-		return axios.delete(`http://mishinima.com:8080/api/posts/${id}`)
+		return axios.delete(`http://localhost.com:8080/api/posts/${id}`)
 			.then(() => onDelete(id))  
 	}
 

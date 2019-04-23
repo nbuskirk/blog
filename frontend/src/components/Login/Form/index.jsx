@@ -22,7 +22,7 @@ class LoginForm extends React.Component {
 		const { onLoad } = this.props;
 		const { username, password } = this.state;
 
-		axios.post('http://mishinima.com:8080/api/login', {
+		axios.post('http://localhost.com:8080/api/login', {
 			username,
 		    password,
 		})
