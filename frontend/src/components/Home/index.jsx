@@ -1,28 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 
 class Home extends React.Component {
 
-	componentDidMount() {
-		const { onLoad } = this.props;
-		//axios('http://localhost:8080/api/posts/featured')
-		//	.then((res) => onLoad(res.data))
-	}
 	render(){
 
 		const { user } = this.props;
-		console.log(user)
-		return(
-			<div className="content">
-				<div className='masthead'>
-					<h1>Home</h1>
-					
+		
+		return (
+			<div id='home'>
+				<div className='container'>
+					<div className='mx-auto card p-5 text-center'>
+						<h1>Home</h1>
+						{user ? 'Welcome, '+user.username : 'You are not currently logged in'}
+					</div>
 				</div>
 			</div>
 		)
 	}
-
 }
-export default Home;
+
+/* Get user from global store and map it to a property */
+const mapStateToProps = state => ({
+	user: state.app.user
+})
+
+export default connect(mapStateToProps, null)(Home);

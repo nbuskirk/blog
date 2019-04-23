@@ -1,21 +1,24 @@
+/*
+	App entry point
+	One global store provided to <App />
+*/
+
 import React from 'react';
-import createHistory from 'history/createBrowserHistory';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Switch, Router } from 'react-router-dom';
-
+import { Route, Switch, HashRouter } from 'react-router-dom';
 import store from './store';
-import { App } from './components'
 
+import { App } from './components'
 import '../resources/scss/style.scss';
 
 ReactDOM.render(
-  <Router history={createHistory()}>
+  <HashRouter basename="/">
   	<Provider store={store}>
 	  	<Switch>
 	  		<Route path='/' component={App} />
 	  	</Switch>
   	</Provider>
-  </Router>,
+  </HashRouter>,
   document.getElementById('root'),
 );
