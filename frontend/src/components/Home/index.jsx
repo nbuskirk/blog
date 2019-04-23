@@ -1,34 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 class Home extends React.Component {
 
 	componentDidMount() {
-		const { user, onLoad } = this.props;
-		onLoad(user)
+		const { onLoad } = this.props;
+		//axios('http://localhost:8080/api/posts/featured')
+		//	.then((res) => onLoad(res.data))
 	}
 	render(){
 
-		const { posts } = this.props;
-
+		const { user } = this.props;
+		console.log(user)
 		return(
 			<div className="content">
 				<div className='masthead'>
 					<h1>Home</h1>
+					
 				</div>
 			</div>
 		)
 	}
 
 }
-
-const mapStateToProps = state => ({
-	posts: state.blog.posts
-})
-
-const mapDispatchToProps = dispatch => ({
-	onLoad: data => dispatch({ type: 'HOME_LOADED', data }),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

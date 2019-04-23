@@ -29,6 +29,8 @@ class Login extends React.Component {
 				{users.map((user) => {
 					return (<li className='list-group-item d-flex justify-content-between align-items-center' key={user._id}>
 						{user.username || 'UNDEFINED'}
+						
+						<p >{user._id}</p>
 						<button onClick={() => this.handleDelete(user._id)} className='btn btn-sm pull-right btn-danger'>Delete</button>
 					</li>)
 				})}

@@ -16,11 +16,16 @@ mongoose.connect('mongodb://localhost/testblog', { useNewUrlParser: true });
 mongoose.set('debug', true);
 
 app.use(cors());
-app.use(require('morgan')('dev'));
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'TestBlog', cookie: {maxAge: 60000}, resave: false, saveUninitialized: false}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(function(req,res,next){
   res.setHeader('Access-Control-Allow-Origin','*');

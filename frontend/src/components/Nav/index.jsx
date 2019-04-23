@@ -1,16 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Nav extends React.Component {
 
-	componentDidMount() {
-		const { user, onLoad } = this.props;
-		onLoad(user)
+	constructor(props) {
+		super(props);
+
+		this.handleLogout = this.handleLogout.bind(this);
 	}
+
+	handleLogout(event) {
+		console.log('logout');
+		const {onLogout} = this.props;
+		event.preventDefault();
+		onLogout();
+		this.props.history.push('/');
+	}
+
 	render(){
 
 		const { user } = this.props;
+		console.log(user)
 
 		return(
 			<div className='navbar navbar-expand-lg navbar-dark bg-dark'>
@@ -28,13 +39,18 @@ class Nav extends React.Component {
 						<li className='nav-item'>
 							<NavLink to='/blog' className='nav-link'>Blog</NavLink>
 						</li>
-						<li className='nav-item'>
-							<NavLink to='/users' className='nav-link'>Users</NavLink>
-						</li>
+						 
+							 <li className='nav-item'>
+								<NavLink to='/users' className='nav-link'>Users</NavLink>
+								</li>
+							
+						
 					</ul>
 					<ul className='navbar-nav'>	
+						{ user ? <li className="nav-item nav-link">Logged in as: {user.username}</li> : '' }
 						<li className='nav-item'>
-							{ !user ? <NavLink to='/login' className='nav-link'>Login</NavLink> : <NavLink to='/logout' className='nav-link'>Logout</NavLink>}
+							{ !user ? <NavLink to='/login' className='nav-link'>Login</NavLink> : <a href="#" className='nav-link' onClick={this.handleLogout}>Logout</a>}
+							
 						</li>
 					</ul>
 				</div>
@@ -45,12 +61,7 @@ class Nav extends React.Component {
 
 }
 
-const mapStateToProps = state => ({
-	user: state.nav.user
-})
-
 const mapDispatchToProps = dispatch => ({
-	onLoad: data => dispatch({ type: 'NAV_LOADED', data }),
+	onLogout: id => dispatch({ type: 'USER_LOGOUT', id})
 })
-
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default withRouter(connect(null, mapDispatchToProps)(Nav));

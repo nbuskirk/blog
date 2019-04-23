@@ -17,10 +17,12 @@ body, html {
   
 }
 
-#home, #signup, #blog {
+#home, #signup, #blog, #login {
 	padding: 5em 0
 }
-
-#signup .form-control, #blog .form-control {
+#footer {
+	padding: 2em 0
+}
+#signup .form-control, #blog .form-control, #login .form-control {
 	border-radius:0;
 }

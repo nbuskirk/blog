@@ -71,7 +71,7 @@ class Form extends React.Component {
 
     return (
       <div className="">
-      <div class="col-lg-6 mx-auto">
+      <div className="col-lg-6 mx-auto">
         <input 
           onChange={(ev) => this.handleChangeField('title',ev)}
           value={title}

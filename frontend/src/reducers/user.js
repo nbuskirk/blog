@@ -18,6 +18,7 @@ export default (state={users: []}, action) => {
 				...state,
 				users: state.users.filter((user) => user._id !== action.id),
 			}
+		
 		default:
 			return state;
 	}

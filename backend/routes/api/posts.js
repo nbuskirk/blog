@@ -4,6 +4,7 @@ const Posts = mongoose.model('Posts');
 
 router.post('/', async (req,res, next) => {
 
+	console.log('SERVER - POST CREATE');
 	const { body } = req;
 	
 	if(!body.title) {
@@ -37,13 +38,10 @@ router.post('/', async (req,res, next) => {
 
 })
 
-router.get('/:id', function(req,res, next) {
-	return Posts.findOne({_id: req.params.id})
-		.then((post) => res.json({post: post}))
-		.catch(next);
-})
+
 
 router.delete('/:id', (req,res,next) => {
+	console.log('SERVER - POST DELETE BY ID');
 	return Posts.findOneAndDelete({_id: req.params.id})
 		.then(() => res.status(200).json({
 			message: 'Post Deleted'
@@ -52,11 +50,23 @@ router.delete('/:id', (req,res,next) => {
 })
 
 router.get('/', (req,res,next) => {
-	console.log(req.session);
+	console.log('SERVER - POST LIST');
+	console.log(req.session.user);
 	return Posts.find()
 		.sort({ createdAt: 'descending' })
 		.then((posts) => res.json({posts: posts}))
 		.catch(next);
 });
 
+router.get('/featured', (req,res,next) => {
+	console.log('BACKEND: Finding featured posts...');
+	console.log(req.session.user)
+	res.end();
+});
+router.get('/:id', function(req,res, next) {
+	console.log('SERVER - POST FIND BY ID');
+	return Posts.findOne({_id: req.params.id})
+		.then((post) => res.json({post: post}))
+		.catch(next);
+})
 module.exports = router;
