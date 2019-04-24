@@ -25,7 +25,7 @@ A user creation component. Sends user/pass to backend. Updates user list with ne
 #### Contains: Signup/Form
 
 ## Nav
-A top-level navigation component. Shows router links and conditional login/logout links if there is a user present.
+A top-level navigation component. Shows router links and conditional profile, and login/logout links if there is a user present.
 
 ## Profile
 A user profile component. Displays user info. If accessed directly without logging in will redirect to home route.
