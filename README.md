@@ -4,6 +4,6 @@
 
 # Completed
 
-	### Home
-		#Index
-		Just a home component, displays homepage, and welcome back message if it receives a user.
+### Home
+#Index
+Just a home component, displays homepage, and welcome back message if it receives a user.
