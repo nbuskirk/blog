@@ -4,7 +4,7 @@
 	Modifies: user: null/json (user collection from db)
 */
 
-export default (state={user: null}, action) => {
+export default (state={user: null, error: null}, action) => {
 	switch(action.type){
 		case 'APP_LOADED':
 			console.log('REDUX: App Loaded / Get User');
@@ -12,19 +12,18 @@ export default (state={user: null}, action) => {
 				...state,
 				user: action.data
 			}
+		case 'ERROR_LOGIN':
+			console.log('REDUX: Form Error');
+			return {
+				...state,
+				error: action.data.error
+			}
 		case 'USER_LOGIN':
 			console.log('REDUX: User Login');
-			if(action.data.code==204) {
-				return {
-					...state,
-					error: 'invalid login'
-				}
-			} else if(action.data.code==200) {
-				localStorage.setItem('user', JSON.stringify(action.data.user));
-				return {
-					...state,
-					user: action.data.user
-				}
+			localStorage.setItem('user', JSON.stringify(action.data.user));
+			return {
+				...state,
+				user: action.data.user
 			}
 		case 'USER_LOGOUT':
 			console.log('REDUX: User Logout');

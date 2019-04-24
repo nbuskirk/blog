@@ -10,12 +10,19 @@ class Form extends React.Component {
 		
 		this.state = {
 			username: '',
-			password: ''
+			password: '',
+			alert: false
 		}
 
 		this.handleChangeField = this.handleChangeField.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.toggleAlert = this.toggleAlert.bind(this);
+	}
 	
+	toggleAlert(){
+		this.setState({
+			alert: !this.state.alert
+		})
 	}
 
 	handleChangeField(key, event) {
@@ -26,20 +33,31 @@ class Form extends React.Component {
 
   	handleSubmit() {
 
-  		const { onSubmit } = this.props;
+  		const { onSubmit, onError } = this.props;
   		const { username, password } = this.state;
 
-		axios.post('http://localhost.com:8080/api/user', {
+		axios.post('http://localhost:8080/api/user', {
 			username,
 		    password,
 		})
-		.then((res) => onSubmit(res.data))
+		.then((res) => {
+			if(res.data.code==200) { onSubmit(res.data) }
+			else if(res.data.code==204) { 
+				this.setState({
+					alert: true
+				}, () => {
+					onError(res.data)
+				})
+				 
+			}
+		})
   	
   	}
 
 	render() {
 		
-		const { username, password } = this.state;
+		const { error } = this.props;
+		const { username, password, alert } = this.state;
 		
 		return(
 			<div className="container">		
@@ -49,6 +67,14 @@ class Form extends React.Component {
 					<div className='form-group col-lg-6 mx-auto'>
 						<input required className='form-control p-4 border-bottom-0 rounded-top' type='text' name='username' value={username} placeholder="Username" onChange={(ev) => this.handleChangeField('username',ev)}></input>
 						<input required className='form-control p-4 border-top-1 rounded-bottom' type='text' name='password' value={password} placeholder="Password" onChange={(ev) => this.handleChangeField('password',ev)}></input>
+						{ error && alert ? 
+							<div className='alert alert-danger mt-3 fade show out' role='alert'>
+								<strong>{error}</strong>
+								<button type='button' className='close' onClick={this.toggleAlert}>
+									<span aria-hidden='true'>&times;</span>
+								</button>
+							</div> 
+						: null } 
 						<button className='btn btn-primary btn-lg btn-block mt-4' type='button' onClick={this.handleSubmit}>Go</button>
 					</div>
 				</div>
@@ -58,11 +84,13 @@ class Form extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	users: state.user.users
+	users: state.user.users,
+	error: state.user.error
 })
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: data => dispatch({type: 'USERS_ADD', data}),
+  onError: data => dispatch({type: 'ERROR_SIGNUP', data})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

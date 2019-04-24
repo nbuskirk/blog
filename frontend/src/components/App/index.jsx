@@ -3,8 +3,8 @@
 	App Container
 		data props - user (null/json object)
 
-	PROTIP: Treat React as a view layer ONLY. They should just view the data they are passed, functions and operations
-			on that data come from the redux store reducers.
+	PROTIP: Treat React as a view layer ONLY. Components generally should just view the data they are passed, functions and operations
+			on that data come from the reducers.
 
 */
 
@@ -18,6 +18,7 @@ import { Nav } from '../../components';
 import { Home } from '../../components';
 import { Signup } from '../../components';
 import { Login } from '../../components';
+import { Profile } from '../../components'
 
 /* App Component */
 class App extends React.Component {
@@ -47,6 +48,7 @@ class App extends React.Component {
 				<Route path="/blog" component={ Blog } user={user} />
 				<Route exact path="/signup" component={ Signup } user={user} />
 				<Route exact path="/login" component={ Login } />
+				<Route exact path="/profile" component={ Profile } user={user} />
 			</Switch>
 			<footer id="footer">
 				<p className='text-center'>Test blog (c) 2019 nbuskirk</p>

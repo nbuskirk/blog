@@ -1,5 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const PROD = process.env.NODE_ENV == 'production';
 
 module.exports = {
   entry: [
@@ -63,12 +66,13 @@ module.exports = {
   },
 
   plugins: [
+    //new BundleAnalyzerPlugin(),
     new ExtractTextPlugin({ filename: 'style.css' }),
     new HtmlWebpackPlugin({
       template: './resources/index.html',
       filename: './index.html',
       hash: true,
-    }),
+    })
   ],
 
   devServer: {

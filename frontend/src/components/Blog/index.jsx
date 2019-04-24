@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { Form } from '../../components/Post';
 
@@ -10,7 +9,7 @@ class Blog extends React.Component {
 		/* When the <Blog /> is mounted, fetch our data and send it to the reducer (blog.onLoad) */
 		/* This will change the state of blog to have a posts json array */
 		const { onLoad } = this.props;
-		axios('http://localhost.com:8080/api/posts')
+		axios('http://localhost:8080/api/posts')
 			.then((res) => onLoad(res.data))
 	}
 
@@ -18,7 +17,7 @@ class Blog extends React.Component {
 		/* Call DELETE on the endpoint, then concat the users array in the reducer(blog.onDelete), and return it to us */
 		/* This triggers a re-render with a shorter post list, post array - 1 */
 		const { onDelete } = this.props;
-		return axios.delete(`http://localhost.com:8080/api/posts/${id}`)
+		return axios.delete(`http://localhost:8080/api/posts/${id}`)
 			.then(() => onDelete(id))  
 	}
 
@@ -59,7 +58,8 @@ class Blog extends React.Component {
 								</div>
 								<div className="card-body">
 									{post.body}
-									<p className="mt-5 text-muted"><b>{post.author}</b> {moment(new Date(post.createdAt)).fromNow()}</p>
+									<p className="mt-5 text-muted"><b>{post.author}</b></p>
+									<p className="text-muted">{new Date(post.createdAt).toString()}</p>
 								</div>
 								
 								{user ? 
@@ -91,3 +91,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blog);
+
+//moment(new Date(post.createdAt)).fromNow()

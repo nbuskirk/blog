@@ -58,7 +58,7 @@ class Form extends React.Component {
         const { title, body, author } = this.state; //spread
 
         if(!postToEdit) {
-            return axios.post('http://localhost.com:8080/api/posts', {
+            return axios.post('http://localhost:8080/api/posts', {
                 title,
                 body,
                 author
@@ -66,7 +66,7 @@ class Form extends React.Component {
             .then((res) => onSubmit(res.data))
             .then(() => this.setState({title:'', body: '', author: ''}));
         } else {
-            return axios.patch(`http://localhost.com:8080/api/posts/${postToEdit._id}`, {
+            return axios.patch(`http://localhost:8080/api/posts/${postToEdit._id}`, {
                 title,
                 body,
                 author

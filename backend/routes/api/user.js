@@ -6,9 +6,18 @@ const User = mongoose.model('User');
 router.post('/', (req,res, next) => {
 	const { body } = req;
 	console.log('SERVER - USER CREATE');
+	
+	if(!body.username) {
+		return res.send({'code':204, 'error': 'username is required'})
+	}
+	
+	if(!body.password) {
+		return res.send({'code':204, 'error': 'password is required'})
+	}
+
 	const newUser = new User(body);
 	return newUser.save()
-		.then(() => res.json({user: newUser.toJSON()}))
+		.then(() => res.json({'code': 200, user: newUser.toJSON()}))
 		.catch(next);
 })
 

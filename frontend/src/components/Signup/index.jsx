@@ -7,42 +7,39 @@ class Signup extends React.Component {
 
 	componentDidMount() {
 		const { onLoad } = this.props;
-		axios.get('http://localhost.com:8080/api/user')
+		axios.get('http://localhost:8080/api/user')
 			.then((res) => onLoad(res.data))
 
 	}
 
 	handleDelete(id) {
 		const { onDelete } = this.props;
-		axios.delete(`http://localhost.com:8080/api/user/${id}`)
-				.then((res) => onDelete(id))
+		axios.delete(`http://localhost:8080/api/user/${id}`)
+			.then((res) => onDelete(id))
 	}
 
 	render() {
 
 		const { user, users } = this.props;
+		
 		return (
 			<div id="signup">
-				<Form />
-				
-<div className='container mt-4'>
-				<ul className='list-group'>
-				{users.map((user) => {
-					return (<li className='list-group-item d-flex justify-content-between align-items-center' key={user._id}>
-						{user.username || 'UNDEFINED'}
-						<button onClick={() => this.handleDelete(user._id)} className='btn btn-sm pull-right btn-danger'>Delete</button>
-					</li>)
-				})}
-				</ul>
+				<Form />	
+				<div className='container mt-4'>
+					<ul className='list-group'>
+					{users.map((user) => {
+						return (<li className='list-group-item d-flex justify-content-between align-items-center' key={user._id}>
+							{user.username || 'UNDEFINED'}
+						 		<button onClick={() => this.handleDelete(user._id)} className='btn btn-danger'>Delete</button>
+							</li>)
+						})}
+					</ul>
 				</div>
-				
-				
-
-				
 			</div>
 		)
 	}
 }
+
 const mapStateToProps = state => ({
 	user: state.app.user,
 	users: state.user.users

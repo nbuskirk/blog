@@ -3,7 +3,12 @@ const router = require('express').Router();
 const User = mongoose.model('User');
 
 router.post('/', async (req,res, next) => {
-
+	if(!req.body.username) {
+		return res.send({'code':204, 'error': 'username is required'});
+	}
+	if(!req.body.password) {
+		return res.send({'code':204, 'error': 'password is required'});
+	}
 	User.findOne({'username': req.body.username})
 	.then((user) => {
 		if(user!== null && user.checkPassword(req.body.password)) {
